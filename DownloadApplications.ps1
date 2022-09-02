@@ -10,7 +10,7 @@ foreach ($Application in $Sources.Applications) {
         New-Item (Split-Path $Application.Destination -Parent) -ItemType Directory -Force | Out-Null
         Invoke-WebRequest $Application.Uri -OutFile $Application.Destination
     }
-    else {
+    elseif ($Application.Source -eq "share") {
         New-Item $Application.Destination-ItemType Directory -Force | Out-Null
         foreach ($File in $Application.Files) {
             Copy-Item -Path "filesystem::$File" -Destination "$($Application.Destination)\"
